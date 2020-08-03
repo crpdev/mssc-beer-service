@@ -3,7 +3,6 @@ package in.crpdev.msscbeerservice.bootstrap;
 import in.crpdev.msscbeerservice.domain.model.Beer;
 import in.crpdev.msscbeerservice.domain.repository.BeerRepository;
 import in.crpdev.msscbeerservice.web.model.BeerStyle;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +20,11 @@ public class BeerLoader implements CommandLineRunner {
     public static final String BEER_1_UPC = "0631234200036";
     public static final String BEER_2_UPC = "0631234300019";
 
-    @Autowired
-    private BeerRepository beerRepository;
+    private final BeerRepository beerRepository;
+
+    public BeerLoader(BeerRepository beerRepository) {
+        this.beerRepository = beerRepository;
+    }
 
     @Override
     public void run(String... args) throws Exception {
