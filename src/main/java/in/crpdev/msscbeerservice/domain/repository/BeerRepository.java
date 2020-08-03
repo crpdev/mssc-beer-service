@@ -11,5 +11,6 @@ import java.util.UUID;
  * Project: mssc-beer-service
  * Package: in.crpdev.msscbeerservice.domain.repository
  **/
+
 public interface BeerRepository extends PagingAndSortingRepository<Beer, UUID> {
 }
