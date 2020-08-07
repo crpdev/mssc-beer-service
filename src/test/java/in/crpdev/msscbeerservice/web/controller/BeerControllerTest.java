@@ -2,6 +2,7 @@ package in.crpdev.msscbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import in.crpdev.msscbeerservice.web.model.BeerDto;
+import in.crpdev.msscbeerservice.web.model.BeerStyle;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,7 +42,7 @@ class BeerControllerTest {
 
     @Test
     void saveNewBeer() {
-        BeerDto beerDto = BeerDto.builder().build();
+        BeerDto beerDto = getValidBeer();
         try {
             String beerDtoJson = objectMapper.writeValueAsString(beerDto);
             mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/beer")
@@ -54,7 +56,7 @@ class BeerControllerTest {
 
     @Test
     void updateBeerById() {
-        BeerDto beerDto = BeerDto.builder().build();
+        BeerDto beerDto = getValidBeer();
         try {
             String beerDtoJson = objectMapper.writeValueAsString(beerDto);
             mockMvc.perform(MockMvcRequestBuilders.put( "/api/v1/beer/" + UUID.randomUUID())
@@ -64,5 +66,14 @@ class BeerControllerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    BeerDto getValidBeer(){
+        return BeerDto.builder()
+                .beerName("Kingfisher")
+                .beerStyle(BeerStyle.LAGER)
+                .price(new BigDecimal("99.99"))
+                .upc(123)
+                .build();
     }
 }
